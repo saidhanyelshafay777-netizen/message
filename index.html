@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flowers For You 💜</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: Georgia, Tahoma, serif;
+    background: #080817;
+    color: white;
+}
+
+#sky {
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 50% 65%, #172b49 0%, #10172d 42%, #080817 80%);
+    overflow: hidden;
+}
+
+.stars {
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(2px 2px at 10% 20%, white, transparent),
+        radial-gradient(1px 1px at 30% 60%, white, transparent),
+        radial-gradient(2px 2px at 70% 15%, #e9caff, transparent),
+        radial-gradient(1px 1px at 90% 40%, white, transparent),
+        radial-gradient(2px 2px at 45% 35%, white, transparent),
+        radial-gradient(1px 1px at 80% 80%, white, transparent);
+    background-size: 190px 190px;
+    animation: starsMove 8s linear infinite alternate;
+}
+
+@keyframes starsMove {
+    from { opacity: .4; }
+    to { opacity: 1; }
+}
+
+.moon {
+    position: absolute;
+    top: 12%;
+    right: 8%;
+    width: 42px;
+    height: 42px;
+    background: #fff9e7;
+    border-radius: 50%;
+    box-shadow: 0 0 25px #fff3c4, 0 0 60px #c8d8ff;
+}
+
+.shooting-star {
+    position: absolute;
+    width: 75px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, white);
+    transform: rotate(-35deg);
+    top: 30%;
+    left: 10%;
+    animation: shooting 5s infinite;
+    opacity: 0;
+}
+
+@keyframes shooting {
+    0%, 75% { opacity: 0; transform: translate(0,0) rotate(-35deg); }
+    78% { opacity: 1; }
+    100% { opacity: 0; transform: translate(180px,100px) rotate(-35deg); }
+}
+
+.scene {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100vh;
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 15px;
+}
+
+.screen {
+    position: absolute;
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    transition: opacity .8s, transform .8s;
+}
+
+.hidden {
+    display: none !important;
+}
+
+h1 {
+    font-size: clamp(30px, 8vw, 43px);
+    font-style: italic;
+    color: #c45bff;
+    text-shadow: 0 0 12px #a32cff, 0 0 30px #7922bd;
+    margin: 0 0 30px;
+    direction: ltr;
+}
+
+.hint {
+    font-family: Arial, sans-serif;
+    color: #e7caff;
+    letter-spacing: 4px;
+    font-size: 13px;
+    margin-bottom: 22px;
+    animation: hintPulse 1.5s infinite;
+}
+
+@keyframes hintPulse {
+    50% { opacity: .3; }
+}
+
+/* القلب الأول */
+
+.heart-button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 105px;
+    filter: drop-shadow(0 0 15px #d04aff);
+    animation: heartbeat 1.2s infinite;
+    transition: .4s;
+}
+
+.heart-button:hover {
+    transform: scale(1.18);
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+/* عنوان الورد */
+
+.flower-title {
+    font-size: clamp(29px, 8vw, 42px);
+    margin-bottom: 5px;
+}
+
+/* باقة الورد */
+
+.bouquet-area {
+    position: relative;
+    width: 300px;
+    height: 340px;
+    max-width: 90vw;
+    margin-top: 5px;
+    animation: bouquetAppear 1.4s ease both;
+}
+
+@keyframes bouquetAppear {
+    from {
+        opacity: 0;
+        transform: translateY(100px) scale(.5);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.flower-stems {
+    position: absolute;
+    bottom: 75px;
+    left: 50%;
+    width: 230px;
+    height: 245px;
+    transform: translateX(-50%);
+}
+
+.stem {
+    position: absolute;
+    bottom: 0;
+    width: 5px;
+    height: 170px;
+    background: linear-gradient(to top, #165d42, #65b76c);
+    border-radius: 10px;
+    transform-origin: bottom;
+}
+
+.stem:nth-child(1) { left: 30px; height: 150px; transform: rotate(-22deg); }
+.stem:nth-child(2) { left: 65px; height: 180px; transform: rotate(-12deg); }
+.stem:nth-child(3) { left: 110px; height: 200px; }
+.stem:nth-child(4) { left: 150px; height: 180px; transform: rotate(12deg); }
+.stem:nth-child(5) { left: 185px; height: 150px; transform: rotate(22deg); }
+.stem:nth-child(6) { left: 90px; height: 165px; transform: rotate(-5deg); }
+.stem:nth-child(7) { left: 130px; height: 165px; transform: rotate(6deg); }
+
+.leaf {
+    position: absolute;
+    width: 40px;
+    height: 17px;
+    background: linear-gradient(45deg, #1c7548, #73c879);
+    border-radius: 100% 0 100% 0;
+}
+
+.leaf.one { left: 28px; bottom: 90px; transform: rotate(-25deg); }
+.leaf.two { left: 155px; bottom: 110px; transform: rotate(25deg) scaleX(-1); }
+.leaf.three { left: 75px; bottom: 60px; transform: rotate(-20deg); }
+.leaf.four { left: 125px; bottom: 75px; transform: rotate(20deg) scaleX(-1); }
+
+.tulip {
+    position: absolute;
+    width: 43px;
+    height: 53px;
+    background: linear-gradient(135deg, #e5b3ff, #a43de5 65%, #7424b7);
+    border-radius: 50% 50% 35% 35%;
+    box-shadow: inset -5px -5px 10px #7620a5,
+                0 0 14px #bc67ff;
+    bottom: 0;
+    transform-origin: bottom;
+    animation: tulipSway 3s ease-in-out infinite alternate;
+}
+
+.tulip:before,
+.tulip:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 22px;
+    height: 30px;
+    background: linear-gradient(130deg, #f1d4ff, #a43de5);
+    border-radius: 70% 70% 15% 15%;
+}
+
+.tulip:before {
+    left: 0;
+    transform: rotate(-18deg);
+}
+
+.tulip:after {
+    right: 0;
+    transform: rotate(18deg);
+}
+
+.tulip.t1 { left: 12px; bottom: 145px; transform: scale(.8) rotate(-15deg); }
+.tulip.t2 { left: 53px; bottom: 175px; transform: scale(.9) rotate(-8deg); }
+.tulip.t3 { left: 95px; bottom: 195px; transform: scale(1.1); }
+.tulip.t4 { left: 140px; bottom: 175px; transform: scale(.9) rotate(8deg); }
+.tulip.t5 { left: 180px; bottom: 145px; transform: scale(.8) rotate(15deg); }
+.tulip.t6 { left: 75px; bottom: 125px; transform: scale(.8); }
+.tulip.t7 { left: 135px; bottom: 125px; transform: scale(.8); }
+
+@keyframes tulipSway {
+    from { margin-left: -3px; }
+    to { margin-left: 3px; }
+}
+
+/* ورق تغليف الباقة */
+
+.wrap {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 175px;
+    height: 130px;
+    background: linear-gradient(140deg, #f8b3d6, #d46ba9);
+    clip-path: polygon(0 0, 100% 0, 82% 100%, 50% 75%, 18% 100%);
+    filter: drop-shadow(0 0 12px #e58ac8);
+}
+
+.wrap-front {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 175px;
+    height: 100px;
+    background: linear-gradient(120deg, #e78abd, #f4b7da);
+    clip-path: polygon(0 0, 100% 0, 75% 100%, 25% 100%);
+}
+
+.bow {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 39px;
+    z-index: 3;
+}
+
+/* كارت الرسالة */
+
+.card {
+    position: absolute;
+    z-index: 5;
+    width: min(340px, 88vw);
+    min-height: 200px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(.4);
+    opacity: 0;
+    pointer-events: none;
+    background: #fffdfd;
+    color: #39303c;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 0 30px #d9a0ff;
+    transition: .9s cubic-bezier(.2,.8,.2,1);
+}
+
+.card.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.card-border {
+    border: 2px dotted #8e8e8e;
+    padding: 15px 12px;
+    min-height: 175px;
+}
+
+.card-title {
+    text-align: left;
+    direction: ltr;
+    font-family: Georgia, serif;
+    font-weight: bold;
+    font-size: 17px;
+    color: #6c397c;
+}
+
+.card-text {
+    font-family: Tahoma, Arial, sans-serif;
+    font-size: 13px;
+    text-align: left;
+    direction: ltr;
+    margin-top: 8px;
+    line-height: 1.6;
+}
+
+.couple {
+    font-size: 68px;
+    margin: 10px 0;
+    animation: coupleBeat 1.5s infinite;
+}
+
+@keyframes coupleBeat {
+    50% { transform: scale(1.08); }
+}
+
+.card-bottom {
+    text-align: left;
+    direction: ltr;
+    font-size: 12px;
+    margin-top: 8px;
+    color: #705879;
+}
+
+.tap-card {
+    color: #d9b5ff;
+    margin-top: 12px;
+    font-size: 13px;
+    animation: hintPulse 1.5s infinite;
+}
+
+/* الرسالة الطويلة */
+
+.love-message {
+    position: fixed;
+    z-index: 8;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(5, 4, 18, .76);
+    backdrop-filter: blur(7px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s;
+}
+
+.love-message.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.message-paper {
+    width: min(420px, 94vw);
+    max-height: 82vh;
+    overflow-y: auto;
+    padding: 25px 20px;
+    border: 1px solid #d69bff;
+    border-radius: 18px;
+    background: linear-gradient(145deg, #28143c, #160e2a);
+    box-shadow: 0 0 30px #a34dff, inset 0 0 20px #54216b;
+    transform: translateY(50px) scale(.8);
+    transition: 1s;
+}
+
+.love-message.show .message-paper {
+    transform: translateY(0) scale(1);
+}
+
+.message-paper h2 {
+    color: #e2adff;
+    font-size: 27px;
+    margin: 0 0 15px;
+    text-shadow: 0 0 12px #bd63ff;
+}
+
+.message-paper p {
+    color: #f7e9ff;
+    font-family: Tahoma, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 2.1;
+    margin: 0;
+}
+
+.signature {
+    margin-top: 20px;
+    color: #e7b5ff;
+    font-size: 23px;
+}
+
+/* القلوب المتحركة */
+
+.flying-heart {
+    position: fixed;
+    z-index: 20;
+    pointer-events: none;
+    animation: heartFly var(--duration) ease-out forwards;
+    filter: drop-shadow(0 0 7px #e18aff);
+}
+
+@keyframes heartFly {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(.5) rotate(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--x), var(--y)) scale(1.5) rotate(var(--r));
+    }
+}
+
+.restart {
+    margin-top: 18px;
+    border: 1px solid #d69bff;
+    background: transparent;
+    color: #f5dcff;
+    border-radius: 25px;
+    padding: 10px 24px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="sky">
+    <div class="stars"></div>
+    <div class="moon"></div>
+    <div class="shooting-star"></div>
+</div>
+
+<main class="scene">
+
+    <!-- المرحلة الأولى: القلب -->
+
+    <section class="screen" id="firstScreen">
+        <h1>Flowers For You</h1>
+        <div class="hint">TAP TO OPEN</div>
+
+        <button class="heart-button" onclick="openFlowers()">
+            💜
+        </button>
+    </section>
+
+    <!-- المرحلة الثانية: باقة الورد -->
+
+    <section class="screen hidden" id="flowerScreen">
+
+        <h1 class="flower-title">Flowers For You</h1>
+
+        <div class="bouquet-area">
+
+            <div class="flower-stems">
+
+                <div class="stem"></div>
+                <div class="stem"></div>
+                <div class="stem"></div>
+                <div class="stem"></div>
+                <div class="stem"></div>
+                <div class="stem"></div>
+                <div class="stem"></div>
+
+                <div class="leaf one"></div>
+                <div class="leaf two"></div>
+                <div class="leaf three"></div>
+                <div class="leaf four"></div>
+
+                <div class="tulip t1"></div>
+                <div class="tulip t2"></div>
+                <div class="tulip t3"></div>
+                <div class="tulip t4"></div>
+                <div class="tulip t5"></div>
+                <div class="tulip t6"></div>
+                <div class="tulip t7"></div>
+
+            </div>
+
+            <div class="wrap"></div>
+            <div class="wrap-front"></div>
+            <div class="bow">🎀</div>
+
+        </div>
+
+        <div class="tap-card">اضغطي على الرسالة 💌</div>
+
+        <!-- كارت الرسالة فوق الورد -->
+
+        <div class="card" id="loveCard" onclick="openLoveMessage()">
+
+            <div class="card-border">
+
+                <div class="card-title">Dear Love 💗</div>
+
+                <div class="card-text">
+                    Today is a special day, because you are special to me.
+                </div>
+
+                <div class="couple">🧸💗🐻</div>
+
+                <div class="card-bottom">
+                    I have something special to tell you...
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<!-- الرسالة الرومانسية -->
+
+<div class="love-message" id="loveMessage">
+
+    <div class="message-paper">
+
+        <h2>إلى أجمل شخص في حياتي 💜</h2>
+
+        <p>
+            عارفة؟ يمكن مش دايمًا بعرف أعبّر عن كل اللي جوايا،
+            وممكن ساعات الكلام يخوني، لكن الحقيقة إن وجودك
+            في حياتي من أجمل الحاجات اللي حصلتلي. ❤️
+
+            <br><br>
+
+            بحب تفاصيلك الصغيرة قبل الكبيرة،
+            بحب ضحكتك اللي بتقدر تغيّر يوم كامل،
+            وبحب طريقتك وكلامك وكل حاجة بتخليكي إنتِ.
+
+            <br><br>
+
+            يمكن الورد ده جميل، ويمكن ريحته حلوة،
+            لكن صدقيني ولا وردة فيه تقدر توصف مكانتك عندي.
+            إنتِ أجمل من كل الورد، وأغلى من أي هدية.
+
+            <br><br>
+
+            نفسي أشوفك دايمًا مبسوطة،
+            ونفسي كل يوم يكون عندك سبب تضحكي عشانه،
+            ولو الدنيا كانت صعبة في يوم،
+            أتمنى تفتكري إن فيه حد بيتمنالك كل الخير والسعادة.
+
+            <br><br>
+
+            مش محتاج مناسبة عشان أقولك إنك مميزة،
+            ولا محتاج سبب عشان أهتم بيكي،
+            لأنك ببساطة بقيتي جزء جميل من أيامي.
+
+            <br><br>
+
+            ولو كان الحب بيتقاس بالكلام،
+            فكل الكلام ده مش هيكفي يوصف اللي جوايا.
+            ولو كان بيتقاس بالورد،
+            كنت هملأ الدنيا كلها ورد عشانك.
+
+            <br><br>
+
+            أتمنى تفضلي دايمًا بنفس جمال روحك،
+            ونفس ضحكتك الحلوة،
+            ونفس القلب الجميل اللي يستاهل كل حاجة حلوة.
+
+            <br><br>
+
+            وأخيرًا... دي مش مجرد باقة ورد،
+            دي طريقة صغيرة أقولك بيها إنك غالية جدًا عندي،
+            وإن وجودك لوحده هدية جميلة. 💗
+
+        </p>
+
+        <div class="signature">
+            With Love, Always 💜
+            <div>🌷💗🌷</div>
+        </div>
+
+        <button class="restart" onclick="location.reload()">
+            من البداية ↻
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+const firstScreen = document.getElementById("firstScreen");
+const flowerScreen = document.getElementById("flowerScreen");
+const loveCard = document.getElementById("loveCard");
+const loveMessage = document.getElementById("loveMessage");
+
+/* الضغط على القلب */
+
+function openFlowers() {
+
+    firstScreen.classList.add("hidden");
+
+    flowerScreen.classList.remove("hidden");
+
+    setTimeout(() => {
+        loveCard.classList.add("show");
+    }, 1800);
+
+}
+
+/* الضغط على كارت الرسالة */
+
+let messageOpened = false;
+
+function openLoveMessage() {
+
+    if (messageOpened) return;
+
+    messageOpened = true;
+
+    loveCard.style.transform =
+        "translate(-50%, -50%) scale(1.15)";
+
+    loveCard.style.opacity = "0";
+
+    setTimeout(() => {
+
+        loveMessage.classList.add("show");
+
+        createHearts();
+
+    }, 500);
+
+}
+
+/* صناعة القلوب المتحركة */
+
+function createHearts() {
+
+    const symbols = [
+        "💗", "💜", "💕", "💖",
+        "💘", "❤️", "💞", "✨"
+    ];
+
+    let count = 0;
+
+    const interval = setInterval(() => {
+
+        for (let i = 0; i < 5; i++) {
+
+            const heart = document.createElement("div");
+
+            heart.className = "flying-heart";
+
+            heart.textContent =
+                symbols[Math.floor(Math.random() * symbols.length)];
+
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.top = (45 + Math.random() * 50) + "vh";
+
+            heart.style.fontSize =
+                (18 + Math.random() * 25) + "px";
+
+            heart.style.setProperty(
+                "--x",
+                (Math.random() * 400 - 200) + "px"
+            );
+
+            heart.style.setProperty(
+                "--y",
+                (-200 - Math.random() * 500) + "px"
+            );
+
+            heart.style.setProperty(
+                "--r",
+                (Math.random() * 100 - 50) + "deg"
+            );
+
+            heart.style.setProperty(
+                "--duration",
+                (2 + Math.random() * 2) + "s"
+            );
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 4500);
+
+        }
+
+        count++;
+
+        if (count >= 12) {
+            clearInterval(interval);
+        }
+
+    }, 250);
+
+}
+
+</script>
+
+</body>
+</html>
